@@ -28,6 +28,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(process.env.PORT || 3001, () => {
-  console.log("WS server running on port", process.env.PORT || 3001);
+server.listen(process.env.PORT || 3002, () => {
+  console.log("WS server running on port", process.env.PORT || 3002);
 });
