@@ -11,16 +11,19 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST"]
-  }
+    methods: ["GET", "POST"],
+  },
 });
+const eventString = ["claim:updated", "claim:created", "claim:deleted"];
 
 io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);
 
-  socket.on("message", (data) => {
-    console.log("Received:", data);
-    io.emit("message", data);
+  eventString.map((events) => {
+    socket.on(events, (data) => {
+      console.log(`Received ${events}`, data);
+      io.emit(events, data);
+    });
   });
 
   socket.on("disconnect", () => {
